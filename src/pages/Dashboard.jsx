@@ -60,9 +60,8 @@ import {
 } from "@/components/ui/tooltip";
 import { Link } from "react-router-dom";
 
-
-
 import { useAuth } from "@/context/authContext";
+import IconDark from "../../public/icons/IconDark";
 export const description =
   "An AI playground with a sidebar navigation and a main content area. The playground has a header with a settings drawer and a share button. The sidebar has navigation links and a user menu. The main content area shows a form to configure the model and messages.";
 
@@ -71,21 +70,20 @@ export default function Dashboard() {
 
   const handleSignout = async () => {
     try {
-      await signout()
+      await signout();
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
-  if (loading) return <h1>Loading</h1>
-
+  if (loading) return <h1>Loading</h1>;
 
   return (
     <div className="grid h-screen w-full pl-[53px]">
-      <aside className="inset-y fixed hidden md:block left-0 z-20  h-full flex-col border-r">
-        <div className="border-b p-2">
+      <aside className="inset-y fixed hidden md:block left-0 z-20  h-full flex-col ">
+        <div className=" p-2">
           <Button variant="outline" size="icon" aria-label="Home">
-            <Triangle className="size-5 fill-foreground" />
+          <IconDark className="h-10 w-10" />
           </Button>
         </div>
         <nav className="grid gap-1 p-2">
@@ -254,7 +252,7 @@ export default function Dashboard() {
               <DropdownMenuItem>Support</DropdownMenuItem>
               <DropdownMenuItem disabled>API</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem >
+              <DropdownMenuItem>
                 Log out
                 <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
               </DropdownMenuItem>
@@ -263,298 +261,201 @@ export default function Dashboard() {
           {/* //End Account */}
         </nav>
       </aside>
-      <div className="flex flex-col">
-        <header className="sticky top-0 z-10 flex h-[53px] items-center gap-1 border-b bg-background px-4">
-          <h1 className="text-xl font-semibold">Playground</h1>
-          <Drawer>
-            <DrawerTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden">
-                <Settings className="size-4" />
-                <span className="sr-only">Settings</span>
-              </Button>
-            </DrawerTrigger>
-            <DrawerContent className="max-h-[80vh]">
-              <DrawerHeader>
-                <DrawerTitle>Configuration</DrawerTitle>
-                <DrawerDescription>
-                  Configure the settings for the model and messages.
-                </DrawerDescription>
-              </DrawerHeader>
-              <form className="grid w-full items-start gap-6 overflow-auto p-4 pt-0">
-                <fieldset className="grid gap-6 rounded-lg border p-4">
-                  <legend className="-ml-1 px-1 text-sm font-medium">
-                    Settings
-                  </legend>
-                  <div className="grid gap-3">
-                    <Label htmlFor="model">Model</Label>
-                    <Select>
-                      <SelectTrigger
-                        id="model"
-                        className="items-start [&_[data-description]]:hidden"
-                      >
-                        <SelectValue placeholder="Select a model" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="genesis">
-                          <div className="flex items-start gap-3 text-muted-foreground">
-                            <Rabbit className="size-5" />
-                            <div className="grid gap-0.5">
-                              <p>
-                                Neural{" "}
-                                <span className="font-medium text-foreground">
-                                  Genesis
-                                </span>
-                              </p>
-                              <p className="text-xs" data-description>
-                                Our fastest model for general use cases.
-                              </p>
-                            </div>
-                          </div>
-                        </SelectItem>
-                        <SelectItem value="explorer">
-                          <div className="flex items-start gap-3 text-muted-foreground">
-                            <Bird className="size-5" />
-                            <div className="grid gap-0.5">
-                              <p>
-                                Neural{" "}
-                                <span className="font-medium text-foreground">
-                                  Explorer
-                                </span>
-                              </p>
-                              <p className="text-xs" data-description>
-                                Performance and speed for efficiency.
-                              </p>
-                            </div>
-                          </div>
-                        </SelectItem>
-                        <SelectItem value="quantum">
-                          <div className="flex items-start gap-3 text-muted-foreground">
-                            <Turtle className="size-5" />
-                            <div className="grid gap-0.5">
-                              <p>
-                                Neural{" "}
-                                <span className="font-medium text-foreground">
-                                  Quantum
-                                </span>
-                              </p>
-                              <p className="text-xs" data-description>
-                                The most powerful model for complex
-                                computations.
-                              </p>
-                            </div>
-                          </div>
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="grid gap-3">
-                    <Label htmlFor="temperature">Temperature</Label>
-                    <Input id="temperature" type="number" placeholder="0.4" />
-                  </div>
-                  <div className="grid gap-3">
-                    <Label htmlFor="top-p">Top P</Label>
-                    <Input id="top-p" type="number" placeholder="0.7" />
-                  </div>
-                  <div className="grid gap-3">
-                    <Label htmlFor="top-k">Top K</Label>
-                    <Input id="top-k" type="number" placeholder="0.0" />
-                  </div>
-                </fieldset>
-                <fieldset className="grid gap-6 rounded-lg border p-4">
-                  <legend className="-ml-1 px-1 text-sm font-medium">
-                    Messages
-                  </legend>
-                  <div className="grid gap-3">
-                    <Label htmlFor="role">Role</Label>
-                    <Select defaultValue="system">
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select a role" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="system">System</SelectItem>
-                        <SelectItem value="user">User</SelectItem>
-                        <SelectItem value="assistant">Assistant</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="grid gap-3">
-                    <Label htmlFor="content">Content</Label>
-                    <Textarea id="content" placeholder="You are a..." />
-                  </div>
-                </fieldset>
-              </form>
-            </DrawerContent>
-          </Drawer>
-          <Button
-            variant="outline"
-            size="sm"
-            className="ml-auto gap-1.5 text-sm"
-          >
-            <Share className="size-3.5" />
-            Share
-          </Button>
+      {/* STYLE FOR FORM */}
+      <div className="flex flex-col min-h-screen">
+        <header className="sticky top-0 z-10 flex h-[53px] items-center gap-1 bg-background px-4">
+          <h1 className="text-xl font-semibold">Mimis Accounting</h1>
         </header>
-        <main className="grid flex-1 gap-4 overflow-auto p-4 md:grid-cols-2 lg:grid-cols-3">
-          <div
-            className="relative hidden flex-col items-start gap-8 md:flex"
-            x-chunk="dashboard-03-chunk-0"
-          >
+
+        <main className="flex-1 overflow-auto p-4 scrollbar-hidden">
+          {" "}
+          {/* Clase para ocultar scrollbar */}
+          <div className="relative flex-col items-start gap-8">
+            {/* Forms para el inventario */}
             <form className="grid w-full items-start gap-6">
-              <fieldset className="grid gap-6 rounded-lg border p-4">
-                <legend className="-ml-1 px-1 text-sm font-medium">
-                  Settings
-                </legend>
-                <div className="grid gap-3">
-                  <Label htmlFor="model">Model</Label>
-                  <Select>
-                    <SelectTrigger
-                      id="model"
-                      className="items-start [&_[data-description]]:hidden"
-                    >
-                      <SelectValue placeholder="Select a model" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="genesis">
-                        <div className="flex items-start gap-3 text-muted-foreground">
-                          <Rabbit className="size-5" />
-                          <div className="grid gap-0.5">
-                            <p>
-                              Neural{" "}
-                              <span className="font-medium text-foreground">
-                                Genesis
-                              </span>
-                            </p>
-                            <p className="text-xs" data-description>
-                              Our fastest model for general use cases.
-                            </p>
-                          </div>
-                        </div>
-                      </SelectItem>
-                      <SelectItem value="explorer">
-                        <div className="flex items-start gap-3 text-muted-foreground">
-                          <Bird className="size-5" />
-                          <div className="grid gap-0.5">
-                            <p>
-                              Neural{" "}
-                              <span className="font-medium text-foreground">
-                                Explorer
-                              </span>
-                            </p>
-                            <p className="text-xs" data-description>
-                              Performance and speed for efficiency.
-                            </p>
-                          </div>
-                        </div>
-                      </SelectItem>
-                      <SelectItem value="quantum">
-                        <div className="flex items-start gap-3 text-muted-foreground">
-                          <Turtle className="size-5" />
-                          <div className="grid gap-0.5">
-                            <p>
-                              Neural{" "}
-                              <span className="font-medium text-foreground">
-                                Quantum
-                              </span>
-                            </p>
-                            <p className="text-xs" data-description>
-                              The most powerful model for complex computations.
-                            </p>
-                          </div>
-                        </div>
-                      </SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="grid gap-3">
-                  <Label htmlFor="temperature">Temperature</Label>
-                  <Input id="temperature" type="number" placeholder="0.4" />
-                </div>
-                <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Inventario General */}
+                <fieldset className="grid gap-6 rounded-lg border p-4">
+                  <legend className="-ml-1 px-1 text-sm font-medium">
+                    Inventario General
+                  </legend>
                   <div className="grid gap-3">
-                    <Label htmlFor="top-p">Top P</Label>
-                    <Input id="top-p" type="number" placeholder="0.7" />
+                    <Label htmlFor="fruits">
+                      Frutas (Ej: Fresas, Melocotón, Banano)
+                    </Label>
+                    <Textarea
+                      id="fruits"
+                      placeholder="Especificar tipo y cantidad"
+                      className="min-h-[4rem]"
+                    />
+                    <Label htmlFor="fruitCost">
+                      Costo Total de Frutas (Q.)
+                    </Label>
+                    <Input
+                      id="fruitCost"
+                      type="number"
+                      placeholder="Ej: 750.00"
+                    />
                   </div>
+                </fieldset>
+
+                {/* Toppings */}
+                <fieldset className="grid gap-6 rounded-lg border p-4">
+                  <legend className="-ml-1 px-1 text-sm font-medium">
+                    Toppings
+                  </legend>
                   <div className="grid gap-3">
-                    <Label htmlFor="top-k">Top K</Label>
-                    <Input id="top-k" type="number" placeholder="0.0" />
+                    <Label htmlFor="toppings">Toppings</Label>
+                    <Textarea
+                      id="toppings"
+                      placeholder="Especificar toppings"
+                      className="min-h-[4rem]"
+                    />
+                    <Label htmlFor="toppingsCost">
+                      Costo Total de Toppings (Q.)
+                    </Label>
+                    <Input
+                      id="toppingsCost"
+                      type="number"
+                      placeholder="Ej: 1000.00"
+                    />
                   </div>
-                </div>
-              </fieldset>
-              <fieldset className="grid gap-6 rounded-lg border p-4">
-                <legend className="-ml-1 px-1 text-sm font-medium">
-                  Messages
-                </legend>
-                <div className="grid gap-3">
-                  <Label htmlFor="role">Role</Label>
-                  <Select defaultValue="system">
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a role" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="system">System</SelectItem>
-                      <SelectItem value="user">User</SelectItem>
-                      <SelectItem value="assistant">Assistant</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="grid gap-3">
-                  <Label htmlFor="content">Content</Label>
-                  <Textarea
-                    id="content"
-                    placeholder="You are a..."
-                    className="min-h-[9.5rem]"
-                  />
-                </div>
-              </fieldset>
-            </form>
-          </div>
-          <div className="relative flex h-full min-h-[50vh] flex-col rounded-xl bg-muted/50 p-4 lg:col-span-2">
-            <Badge variant="outline" className="absolute right-3 top-3">
-              Output
-            </Badge>
-            <div className="flex-1" />
-            <form
-              className="relative overflow-hidden rounded-lg border bg-background focus-within:ring-1 focus-within:ring-ring"
-              x-chunk="dashboard-03-chunk-1"
-            >
-              <Label htmlFor="message" className="sr-only">
-                Message
-              </Label>
-              <Textarea
-                id="message"
-                placeholder="Type your message here..."
-                className="min-h-12 resize-none border-0 p-3 shadow-none focus-visible:ring-0"
-              />
-              <div className="flex items-center p-3 pt-0">
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button variant="ghost" size="icon">
-                        <Paperclip className="size-4" />
-                        <span className="sr-only">Attach file</span>
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent side="top">Attach File</TooltipContent>
-                  </Tooltip>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button variant="ghost" size="icon">
-                        <Mic className="size-4" />
-                        <span className="sr-only">Use Microphone</span>
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent side="top">Use Microphone</TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-                <Button type="submit" size="sm" className="ml-auto gap-1.5">
-                  Send Message
-                  <CornerDownLeft className="size-3.5" />
-                </Button>
+                </fieldset>
+
+                {/* Varios */}
+                <fieldset className="grid gap-6 rounded-lg border p-4">
+                  <legend className="-ml-1 px-1 text-sm font-medium">
+                    Varios
+                  </legend>
+                  <div className="grid gap-3">
+                    <Label htmlFor="various">Varios (Ej: Crema, Nutella)</Label>
+                    <Textarea
+                      id="various"
+                      placeholder="Especificar varios productos"
+                      className="min-h-[4rem]"
+                    />
+                    <Label htmlFor="variousCost">
+                      Costo Total de Varios (Q.)
+                    </Label>
+                    <Input
+                      id="variousCost"
+                      type="number"
+                      placeholder="Ej: 500.00"
+                    />
+                  </div>
+                </fieldset>
+
+                {/* Utensilios */}
+                <fieldset className="grid gap-6 rounded-lg border p-4">
+                  <legend className="-ml-1 px-1 text-sm font-medium">
+                    Utensilios
+                  </legend>
+                  <div className="grid gap-3">
+                    <Label htmlFor="utensils">Utensilios</Label>
+                    <Textarea
+                      id="utensils"
+                      placeholder="Especificar utensilios"
+                      className="min-h-[4rem]"
+                    />
+                    <Label htmlFor="utensilsCost">
+                      Costo Total de Utensilios (Q.)
+                    </Label>
+                    <Input
+                      id="utensilsCost"
+                      type="number"
+                      placeholder="Ej: 120.00"
+                    />
+                  </div>
+                </fieldset>
+
+                {/* Compras de Despensas */}
+                <fieldset className="grid gap-6 rounded-lg border p-4">
+                  <legend className="-ml-1 px-1 text-sm font-medium">
+                    Compras de Despensas
+                  </legend>
+                  <div className="grid gap-3">
+                    <Label htmlFor="supplies">Compras de Despensas</Label>
+                    <Textarea
+                      id="supplies"
+                      placeholder="Especificar despensas"
+                      className="min-h-[4rem]"
+                    />
+                    <Label htmlFor="suppliesCost">
+                      Costo Total de Despensas (Q.)
+                    </Label>
+                    <Input
+                      id="suppliesCost"
+                      type="number"
+                      placeholder="Ej: 200.00"
+                    />
+                  </div>
+                </fieldset>
+
+                {/* Delivery */}
+                <fieldset className="grid gap-6 rounded-lg border p-4">
+                  <legend className="-ml-1 px-1 text-sm font-medium">
+                    Servicios de Delivery
+                  </legend>
+                  <div className="grid gap-3">
+                    <Label htmlFor="delivery">Servicios de Delivery</Label>
+                    <Textarea
+                      id="delivery"
+                      placeholder="Especificar servicios"
+                      className="min-h-[4rem]"
+                    />
+                    <Label htmlFor="deliveryCost">
+                      Costo Total de Delivery (Q.)
+                    </Label>
+                    <Input
+                      id="deliveryCost"
+                      type="number"
+                      placeholder="Ej: 300.00"
+                    />
+                  </div>
+                </fieldset>
+
+                {/* Gastos */}
+                <fieldset className="grid gap-6 rounded-lg border p-4">
+                  <legend className="-ml-1 px-1 text-sm font-medium">
+                    Gastos
+                  </legend>
+                  <div className="grid gap-3">
+                    <Label htmlFor="expenses">Gastos</Label>
+                    <Textarea
+                      id="expenses"
+                      placeholder="Especificar gastos"
+                      className="min-h-[4rem]"
+                    />
+                    <Label htmlFor="expensesCost">
+                      Costo Total de Gastos (Q.)
+                    </Label>
+                    <Input
+                      id="expensesCost"
+                      type="number"
+                      placeholder="Ej: 250.00"
+                    />
+                  </div>
+                </fieldset>
               </div>
             </form>
+
+            {/* Espacio adicional para evitar superposición con el footer */}
+            <div className="mt-8" />
           </div>
         </main>
       </div>
+
+      <style jsx>{`
+        .scrollbar-hidden {
+          scrollbar-width: none; /* Firefox */
+          -ms-overflow-style: none; /* Internet Explorer y Edge */
+        }
+        .scrollbar-hidden::-webkit-scrollbar {
+          display: none; /* Safari y Chrome */
+        }
+      `}</style>
+
+      {/* END FORM */}
     </div>
   );
 }

@@ -79,8 +79,8 @@ export default function NavbarSupport() {
          <div className="ml-5">
           {theme === "dark" ? <SupportDark /> : <SupportLight />}
         </div>
-        <div className="-ml-24">
-          {theme === "dark" ? <IconNameDark /> : <IconNameLight />}
+        <div className="-ml-14 mt-3">
+          {theme === "dark" ? <IconNameDark /> : <IconNameDark />}
         </div>
         <span className="sr-only">Mimis accounting</span>
       </Link>

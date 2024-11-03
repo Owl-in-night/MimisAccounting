@@ -3,9 +3,9 @@ import { Routes, Route, useLocation } from "react-router-dom";
 
 //Main Pages
 import Home from "../../pages/Home";
-import DashboardI from "@/pages/DashboardI";
-import SignIn from "../../pages/SignIn";
-import SignUp from "../../pages/SignUp";
+import Inventario from "@/pages/Inventario";
+  import SignIn from "../../pages/SignIn";
+  import SignUp from "../../pages/SignUp";
 //Page Support
 import Support from "../../pages/Support";
 import Aboutus from "../../pages/support/aboutus";
@@ -45,7 +45,7 @@ function Navigation() {
       <AuthProvider>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/Estadísticas" element={<DashboardI />} />
+          <Route path="/Inventario" element={<Inventario />} />
           <Route path="/Acceder" element={<SignIn />} />
           <Route path="/Registrese" element={<SignUp />} />
           <Route

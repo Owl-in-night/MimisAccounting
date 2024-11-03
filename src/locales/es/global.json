@@ -167,9 +167,8 @@
   },
   "mainhome":{
     "work":"¡Bienvenida Mimis!",
-    "workdesc": "Ve a \"Estadísticas\" si deseas visualizar la información actual o inicia sesión para acceder a todas las funcionalidades del sistema.",
-    "button1":"Ir a estadísticas",
-    "button2":"Saber más sobre la desnutrición",
+    "workdesc": "Inicia sesión para acceder y descubrir todas las funcionalidades del sistema.",
+    "button2":"Iniciar sesión",
     "title":"¿Qué es la desnutrición?",
     "title2":"Definición",
     "description":"Es un estado patológico que surge de una ingesta inadecuada de nutrientes o un exceso catabólico, y se manifiesta con alteraciones clínicas, bioquímicas y problemas en las medidas corporales.",
